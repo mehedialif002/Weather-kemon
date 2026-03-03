@@ -1,0 +1,159 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter city name">
+        <button type="submit">Get Weather</button>
+    </form>
+    <h1>{{description}}</h1>
+    <h1>{{icon}}</h1>
+    <h1>{{temp}}</h1>
+    <h1>{{day}}</h1>
+    <h1>{{city}}</h1>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .container{
+            width:350px;
+            background:white;
+            border-radius:20px;
+            padding:30px;
+            text-align:center;
+            box-shadow:0 15px 30px rgba(0,0,0,0.2);
+            transition:0.3s ease;
+        }
+
+        .container:hover{
+            transform: translateY(-5px);
+        }
+
+        h2{
+            margin-bottom:15px;
+            color:#333;
+        }
+
+        form{
+            margin-bottom:20px;
+        }
+
+        input{
+            width:70%;
+            padding:10px;
+            border-radius:20px;
+            border:1px solid #ccc;
+            outline:none;
+            text-align:center;
+        }
+
+        button{
+            padding:10px 15px;
+            border:none;
+            border-radius:20px;
+            background:#4facfe;
+            color:white;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#00c6ff;
+        }
+
+        .weather-icon{
+            width:100px;
+        }
+
+        .temp{
+            font-size:40px;
+            font-weight:bold;
+            margin:10px 0;
+            color:#333;
+        }
+
+        .description{
+            text-transform:capitalize;
+            color:#666;
+            margin-bottom:10px;
+        }
+
+        .city{
+            font-size:20px;
+            font-weight:600;
+        }
+
+        .day{
+            font-size:14px;
+            color:#888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌤 Weather App</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="city" placeholder="Enter city name">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if city %}
+            <div class="weather-info">
+                <h3 class="city">{{ city }}</h3>
+                <p class="day">{{ day }}</p>
+
+                <img class="weather-icon"
+                     src="http://openweathermap.org/img/wn/{{icon}}@2x.png"
+                     alt="weather icon">
+
+                <div class="temp">{{ temp }}°C</div>
+                <div class="description">{{ description }}</div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Simple fade-in animation
+        document.addEventListener("DOMContentLoaded", function() {
+            const box = document.querySelector(".container");
+            box.style.opacity = 0;
+            setTimeout(() => {
+                box.style.transition = "1s";
+                box.style.opacity = 1;
+            }, 200);
+        });
+    </script>
+
+</body>
+</html>
