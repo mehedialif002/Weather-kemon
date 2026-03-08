@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
 from django.shortcuts import render
 import requests
 import datetime
@@ -7,7 +10,7 @@ def index(request):
         city=request.POST['city']
     else:
         city='Comilla'
-    appid='68dde6e15c7096681dc4f1a3bfeac92d'
+    appid=os.getenv('OPENWEATHER_API_KEY')
     URL='https://api.openweathermap.org/data/2.5/weather'
     PARAMS={'q':city,'appid':appid,'units':'metric'}
     r=requests.get(url=URL,params=PARAMS)
